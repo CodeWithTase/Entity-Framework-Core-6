@@ -13,5 +13,11 @@ namespace PublisherData
             optionsBuilder.UseSqlServer(
                 "data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = PubDatabase");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Author>().HasData(
+                new Author { Id = 20, FirstName = "James", LastName = "Bold" });
+        }
     }
 }

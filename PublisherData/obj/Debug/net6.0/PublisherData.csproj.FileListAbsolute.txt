@@ -13,3 +13,18 @@ C:\Users\EruAk\Downloads\ef-core-6-fundamentals\demos\M02 Building Your FIrst Ap
 C:\Users\EruAk\Downloads\ef-core-6-fundamentals\demos\M02 Building Your FIrst App\Before\PublisherData\obj\Debug\net6.0\refint\PublisherData.dll
 C:\Users\EruAk\Downloads\ef-core-6-fundamentals\demos\M02 Building Your FIrst App\Before\PublisherData\obj\Debug\net6.0\PublisherData.pdb
 C:\Users\EruAk\Downloads\ef-core-6-fundamentals\demos\M02 Building Your FIrst App\Before\PublisherData\obj\Debug\net6.0\ref\PublisherData.dll
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\bin\Debug\net6.0\PublisherData.deps.json
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\bin\Debug\net6.0\PublisherData.dll
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\bin\Debug\net6.0\PublisherData.pdb
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\bin\Debug\net6.0\PublisherDomain.dll
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\bin\Debug\net6.0\PublisherDomain.pdb
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\obj\Debug\net6.0\PublisherData.csproj.AssemblyReference.cache
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\obj\Debug\net6.0\PublisherData.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\obj\Debug\net6.0\PublisherData.AssemblyInfoInputs.cache
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\obj\Debug\net6.0\PublisherData.AssemblyInfo.cs
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\obj\Debug\net6.0\PublisherData.csproj.CoreCompileInputs.cache
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\obj\Debug\net6.0\PublisherData.csproj.CopyComplete
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\obj\Debug\net6.0\PublisherData.dll
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\obj\Debug\net6.0\refint\PublisherData.dll
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\obj\Debug\net6.0\PublisherData.pdb
+C:\Users\EruAk\source\repos\EFCore6\PublisherData\obj\Debug\net6.0\ref\PublisherData.dll

@@ -4,22 +4,86 @@ using Microsoft.EntityFrameworkCore;
 using PublisherData;
 using PublisherDomain;
 
-InsertMultipleAuthors();
+Projections();
 
-void InsertMultipleAuthors()
+void Projections()
 {
     using var context = new PubContext();
-
-    var authours = new Author[] {new Author { FirstName = "Roe", LastName = "Bishop" },
-        new Author { FirstName = "Don", LastName = "Jones" },
-        new Author { FirstName = "Jim", LastName = "Lane" },
-        new Author { FirstName = "Pee", LastName = "Herman" }};
-
-
-    context.Authors.AddRange(authours);
-
-    context.SaveChanges();
+    var unknownType = context.Authors.Select(a => new
+    {
+        AuthorId = a.AuthorId,
+        Name = $"{a.FirstName} {a.LastName}",
+        Books = a.Books.Count
+    }).ToList();
 }
+
+//EagerLoadingBooksWithAuthor();
+
+//void EagerLoadingBooksWithAuthor()
+//{
+//    using var context = new PubContext();
+//    var authors = context.Authors.Include(a => a.Books).ToList();
+//    authors.ForEach(author =>
+//    {
+//        Console.WriteLine($"{author.FirstName} ({author.Books.Count})");
+//        author.Books.ForEach(book => Console.WriteLine("  "+ book.Title));
+//    });
+
+//}
+
+
+//AddNewBookToExistingAuthorInMemory();
+
+//void AddNewBookToExistingAuthorInMemory()
+//{
+//    using var context = new PubContext();
+//    var author = context.Authors.FirstOrDefault(a => a.LastName == "Bold");
+//    if (author != null)
+//    {
+//        author.Books.Add(new Book { Title = "The Darmordy Tales", PublishDate = new DateTime(2013, 1, 3) });
+//    }
+//    context.SaveChanges();
+//}
+
+//InsertNewAuthorWithNewBook();
+
+//void InsertNewAuthorWithNewBook()
+//{
+//    using var context = new PubContext();
+
+//    var author = new Author { FirstName = "Koogan", LastName = "Kassius" };
+//    author.Books.Add(new Book { Title = "The Art Of Boxing", PublishDate = new DateTime(2021, 2, 1) });
+
+//    context.Authors.Add(author);
+//    context.SaveChanges();
+//}
+
+//GetAuthors();
+
+//void GetAuthors()
+//{
+//    using var context = new PubContext();
+//    var authors = context.Authors.ToList();
+//}
+
+
+
+//InsertMultipleAuthors();
+
+//void InsertMultipleAuthors()
+//{
+//    using var context = new PubContext();
+
+//    var authours = new Author[] {new Author { FirstName = "Roe", LastName = "Bishop" },
+//        new Author { FirstName = "Don", LastName = "Jones" },
+//        new Author { FirstName = "Jim", LastName = "Lane" },
+//        new Author { FirstName = "Pee", LastName = "Herman" }};
+
+
+//    context.Authors.AddRange(authours);
+
+//    context.SaveChanges();
+//}
 
 //DeleteAuthor();
 

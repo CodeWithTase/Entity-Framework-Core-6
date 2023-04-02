@@ -4,18 +4,66 @@ using Microsoft.EntityFrameworkCore;
 using PublisherData;
 using PublisherDomain;
 
-Projections();
+PubContext _context = new PubContext(); //existing database
 
-void Projections()
+
+InterpolatedSqlStoredProc();
+
+void InterpolatedSqlStoredProc()
 {
-    using var context = new PubContext();
-    var unknownType = context.Authors.Select(a => new
-    {
-        AuthorId = a.AuthorId,
-        Name = $"{a.FirstName} {a.LastName}",
-        Books = a.Books.Count
-    }).ToList();
+    int minPrice = 10;
+    int maxPrice = 50;
+
+    var authors = _context.Authors.FromSqlInterpolated($"AuthorsBookspriceRange {minPrice}, {maxPrice}")
+        .ToList();
 }
+
+//StringFromInteroplate_SafeFromInjection();
+
+//void StringFromInteroplate_SafeFromInjection()
+//{
+//    var lastNameStartsWith = "B";
+//    var authors = _context.Authors.FromSqlInterpolated($"SELECT * FROM authors WHERE lastname LIKE '{lastNameStartsWith}%' ")
+//        .OrderBy(a => a.LastName).TagWith("Interpolated_Safe").ToList();
+//}
+
+//SimpleRawSQL();
+
+//void SimpleRawSQL()
+//{
+//    var authors = _context.Authors.FromSqlRaw("select * from authors").ToList();
+//}
+
+
+
+//ConnectExistingArtistAndCoverObject();
+
+//void ConnectExistingArtistAndCoverObject()
+//{
+//    using var context =new PubContext();
+//    var artistA = context.Artists.Find(1);
+//    var artistB = context.Artists.Find(2);
+//    var coverA = context.Covers.Find(1);
+//    coverA.Artists = new List<Artist>();
+//    coverA.Artists.Add(artistA);
+//    coverA.Artists.Add(artistB);
+//    context.SaveChanges();
+
+//}
+
+
+//Projections();
+
+//void Projections()
+//{
+//    using var context = new PubContext();
+//    var unknownType = context.Authors.Select(a => new
+//    {
+//        AuthorId = a.AuthorId,
+//        Name = $"{a.FirstName} {a.LastName}",
+//        Books = a.Books.Count
+//    }).ToList();
+//}
 
 //EagerLoadingBooksWithAuthor();
 

@@ -22,6 +22,62 @@ namespace PublisherData.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("ArtistCover", b =>
+                {
+                    b.Property<int>("ArtistsArtistId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CoversCoverId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ArtistsArtistId", "CoversCoverId");
+
+                    b.HasIndex("CoversCoverId");
+
+                    b.ToTable("ArtistCover");
+                });
+
+            modelBuilder.Entity("PublisherDomain.Artist", b =>
+                {
+                    b.Property<int>("ArtistId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ArtistId"), 1L, 1);
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ArtistId");
+
+                    b.ToTable("Artists");
+
+                    b.HasData(
+                        new
+                        {
+                            ArtistId = 1,
+                            FirstName = "Ludwig",
+                            LastName = "Van"
+                        },
+                        new
+                        {
+                            ArtistId = 2,
+                            FirstName = "Petr",
+                            LastName = "Cech"
+                        },
+                        new
+                        {
+                            ArtistId = 3,
+                            FirstName = "Romeo",
+                            LastName = "Miller"
+                        });
+                });
+
             modelBuilder.Entity("PublisherDomain.Author", b =>
                 {
                     b.Property<int>("AuthorId")
@@ -45,9 +101,21 @@ namespace PublisherData.Migrations
                     b.HasData(
                         new
                         {
-                            AuthorId = 20,
+                            AuthorId = 1,
                             FirstName = "James",
                             LastName = "Bold"
+                        },
+                        new
+                        {
+                            AuthorId = 2,
+                            FirstName = "Jack",
+                            LastName = "Siv"
+                        },
+                        new
+                        {
+                            AuthorId = 3,
+                            FirstName = "Blue",
+                            LastName = "Big"
                         });
                 });
 
@@ -77,6 +145,96 @@ namespace PublisherData.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Books");
+
+                    b.HasData(
+                        new
+                        {
+                            BookId = 1,
+                            AuthorId = 1,
+                            BasePrice = 20m,
+                            PublishDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "TheyBelong"
+                        },
+                        new
+                        {
+                            BookId = 2,
+                            AuthorId = 1,
+                            BasePrice = 50m,
+                            PublishDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Taste the Rainbow"
+                        },
+                        new
+                        {
+                            BookId = 3,
+                            AuthorId = 1,
+                            BasePrice = 80m,
+                            PublishDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Just do it"
+                        });
+                });
+
+            modelBuilder.Entity("PublisherDomain.Cover", b =>
+                {
+                    b.Property<int>("CoverId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CoverId"), 1L, 1);
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DesignIdeas")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("DigitalOnly")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CoverId");
+
+                    b.HasIndex("BookId")
+                        .IsUnique();
+
+                    b.ToTable("Covers");
+
+                    b.HasData(
+                        new
+                        {
+                            CoverId = 1,
+                            BookId = 3,
+                            DesignIdeas = "Change colour to blue",
+                            DigitalOnly = false
+                        },
+                        new
+                        {
+                            CoverId = 2,
+                            BookId = 2,
+                            DesignIdeas = "Move clock to bottom",
+                            DigitalOnly = true
+                        },
+                        new
+                        {
+                            CoverId = 3,
+                            BookId = 1,
+                            DesignIdeas = "Set face to left",
+                            DigitalOnly = false
+                        });
+                });
+
+            modelBuilder.Entity("ArtistCover", b =>
+                {
+                    b.HasOne("PublisherDomain.Artist", null)
+                        .WithMany()
+                        .HasForeignKey("ArtistsArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PublisherDomain.Cover", null)
+                        .WithMany()
+                        .HasForeignKey("CoversCoverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PublisherDomain.Book", b =>
@@ -90,9 +248,26 @@ namespace PublisherData.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("PublisherDomain.Cover", b =>
+                {
+                    b.HasOne("PublisherDomain.Book", "Book")
+                        .WithOne("Cover")
+                        .HasForeignKey("PublisherDomain.Cover", "BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+                });
+
             modelBuilder.Entity("PublisherDomain.Author", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("PublisherDomain.Book", b =>
+                {
+                    b.Navigation("Cover")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

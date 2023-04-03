@@ -6,17 +6,40 @@ using PublisherDomain;
 
 PubContext _context = new PubContext(); //existing database
 
+CancleBookWithCutsomTransaction(1);
 
-InterpolatedSqlStoredProc();
-
-void InterpolatedSqlStoredProc()
+void CancleBookWithCutsomTransaction(int bookId)
 {
-    int minPrice = 10;
-    int maxPrice = 50;
+    using var transaction = _context.Database.BeginTransaction();
+    try
+    {
+        var artists = _context.Artists.Where(cover => cover.Covers.Any(c => c.CoverId == bookId)).ToList();
+        foreach (var artist in artists)
+        {
+            artist.LastName = "RemovedCover";
+        }
+        _context.Database.ExecuteSqlInterpolated($"DELETE FROM books WHERE bookId={bookId}");
+        _context.SaveChanges();
+        transaction.Commit();
+    }
+    catch (Exception)
+    {
 
-    var authors = _context.Authors.FromSqlInterpolated($"AuthorsBookspriceRange {minPrice}, {maxPrice}")
-        .ToList();
+        //TODO: Handle Failure
+    }
 }
+
+
+//InterpolatedSqlStoredProc();
+
+//void InterpolatedSqlStoredProc()
+//{
+//    int minPrice = 10;
+//    int maxPrice = 50;
+
+//    var authors = _context.Authors.FromSqlInterpolated($"AuthorsBookspriceRange {minPrice}, {maxPrice}")
+//        .ToList();
+//}
 
 //StringFromInteroplate_SafeFromInjection();
 

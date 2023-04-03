@@ -10,6 +10,11 @@ namespace PublisherData
         public DbSet<Book> Books { get; set; }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Cover> Covers { get; set; }
+
+        public PubContext()
+        {
+
+        }
         
         public PubContext(DbContextOptions<PubContext> options)
             : base(options) 
@@ -18,13 +23,13 @@ namespace PublisherData
         }
 
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    //add logging functionality
-        //    optionsBuilder.UseSqlServer(
-        //        "data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = PubDatabase")
-        //        .LogTo(Console.WriteLine, new[] {DbLoggerCategory.Database.Command.Name}, LogLevel.Information );
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            //add logging functionality
+            optionsBuilder.UseSqlServer(
+                "data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = PubDatabase")
+                .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
